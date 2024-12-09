@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: index.html
-          path: NavigatorX/build/reports/lint-results-debug.html
+          path: app/build/reports/lint-results-debug.html
           
   unit_test:
     needs: [lint]
@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: unit_test_report
-          path: NavigatorX/build/reports/tests/testDebugUnitTest/
+          path: app/build/reports/tests/testDebugUnitTest/
 
 
   instrumentation_test:
@@ -78,4 +78,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: instrumentation_test_report
-          path: NavigatorX/build/reports/androidTests/connected/
+          path: app/build/reports/androidTests/connected/
