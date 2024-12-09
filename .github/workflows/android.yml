@@ -55,8 +55,9 @@ jobs:
           name: unit_test_report
           path: app/build/reports/tests/testDebugUnitTest/
 
-  instrumentation-test:
+  package:
     needs: [unit_test]
+    name: Generate APK
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -69,28 +70,14 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Setup Android SDK and Tools
-        run: |
-          yes | sdkmanager --licenses
-          sdkmanager --update
-          sdkmanager "cmdline-tools;latest" "platform-tools" "platforms;android-30" "system-images;android-30;google_apis;x86_64"
+      - name: Build APK
+        run: ./gradlew assembleDebug
 
 
-      - name: Run Android Emulator
-        uses: ReactiveCircus/android-emulator-runner@v2.33.0
-        with:
-          api-level: 30
-          arch: x86_64
-          script: ./gradlew connectedCheck
-
-      - name: Upload test report
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected/
+          name: nameAPP.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
 
 
