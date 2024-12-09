@@ -39,7 +39,7 @@ jobs:
 
 
   lint:
-    needs: [test]
+    needs: [instrumentation-test]
     runs-on: ubuntu-latest
     steps:
     
