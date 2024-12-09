@@ -77,7 +77,7 @@ jobs:
           api-level: 30
           target: default
           arch: x86
-          emulator-boot-timeout: 600
+          emulator-boot-timeout: 700
           script: ./gradlew connectedCheck
 
       - name: Upload test report
