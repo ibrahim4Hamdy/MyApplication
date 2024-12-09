@@ -22,13 +22,13 @@ jobs:
         run: chmod +x gradlew
 
 
-      - name: Checkout the code
-        uses: actions/checkout@v2
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Run espresso tests
+      - name: Run Android Emulator
         uses: ReactiveCircus/android-emulator-runner@v2.33.0
         with:
-          api-level: 29
+          api-level: 26
           script: ./gradlew connectedCheck
 
       - name: Upload test report
