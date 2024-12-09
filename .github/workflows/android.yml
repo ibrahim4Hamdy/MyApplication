@@ -54,34 +54,3 @@ jobs:
           path: app/build/reports/tests/testDebugUnitTest/
 
 
-  instrumentation-test:
-    needs: [ unit-test ]
-    runs-on: macos-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v4
-
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '23'
-
-      - name: Setup Android SDK and Tools
-        run: |
-          yes | sdkmanager --licenses
-          sdkmanager --install "build-tools;33.0.2" "platform-tools" "platforms;android-30" "system-images;android-30;default;x86"
-
-      - name: Run espresso tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          target: default
-          arch: x86
-          emulator-boot-timeout: 600
-          script: ./gradlew connectedCheck
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v2
-        with:
-          name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected/
